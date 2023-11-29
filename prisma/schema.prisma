@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URI")
+}
+
+model CardCategory {
+  card_id     String   @db.Uuid
+  category_id String   @db.Uuid
+  Cards       Cards    @relation(fields: [card_id], references: [id], onDelete: Cascade, map: "FK_0ee83a5dddfb581a124180ef1da")
+  Category    Category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_e675a079ca975585da4dc22f5b9")
+
+  @@id([card_id, category_id], map: "PK_c779eba9a60a88c1f1e98df9452")
+  @@index([card_id], map: "IDX_0ee83a5dddfb581a124180ef1d")
+  @@index([category_id], map: "IDX_e675a079ca975585da4dc22f5b")
+}
+
+model Cards {
+  id           String         @id(map: "PK_f8d646c98446cc0ef6872e960cc") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  status       String         @db.VarChar
+  title        String         @db.VarChar
+  description  String         @db.VarChar
+  created_at   DateTime       @default(now()) @db.Timestamp(6)
+  updated_at   DateTime       @default(now()) @db.Timestamp(6)
+  user_id      String         @db.Uuid
+  CardCategory CardCategory[]
+  User         User           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_be3144c782c5a87f7f3307c5fbe")
+}
+
+model Category {
+  id           String         @id(map: "PK_c2727780c5b9b0c564c29a4977c") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  created_at   DateTime       @default(now()) @db.Timestamp(6)
+  updated_at   DateTime       @default(now()) @db.Timestamp(6)
+  name         String         @db.VarChar
+  user_id      String         @db.Uuid
+  CardCategory CardCategory[]
+  User         User           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_b0599b55851d01efb86c7955cf2")
+}
+
+model User {
+  id         String     @id(map: "PK_9862f679340fb2388436a5ab3e4") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  created_at DateTime   @default(now()) @db.Timestamp(6)
+  updated_at DateTime   @default(now()) @db.Timestamp(6)
+  name       String     @db.VarChar
+  email      String     @db.VarChar
+  password   String     @db.VarChar
+  photo      String?    @db.VarChar
+  Cards      Cards[]
+  Category   Category[]
+}
+
+model migrations {
+  id        Int    @id(map: "PK_8c82d7f526340ab734260ea46be") @default(autoincrement())
+  timestamp BigInt
+  name      String @db.VarChar
+}
