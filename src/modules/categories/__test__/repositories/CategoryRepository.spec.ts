@@ -81,7 +81,7 @@ describe('Category repository test', () => {
 
     const category = await categoryRepository.create(name, user);
 
-    const foundCategories = await categoryRepository.findAll(user.id);
+    const foundCategories = await categoryRepository.findAll(user.id, name);
 
     expect(foundCategories).toHaveLength(1);
     expect(foundCategories[0].id).toEqual(category.id);
