@@ -7,7 +7,6 @@ export class CategoryRepository implements ICategoryRepository {
     return prisma.category.create({
       data: {
         name,
-        User: user,
         user_id: user.id,
       },
     });

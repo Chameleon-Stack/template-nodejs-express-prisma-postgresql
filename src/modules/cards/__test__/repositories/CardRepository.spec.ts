@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 import { IUser } from '../../../users/dtos/IUser';
 import { UserRepository } from '../../../users/infra/prisma/repositories/UserRepository';
 import { IUserRepository } from '../../../users/repositories/IUserRepository';
@@ -88,6 +89,12 @@ describe('Card repository test', () => {
   });
 
   it('Should be able to find all', async () => {
+    const foundCardSDeleted = await cardRepository.findAll({
+      user_id: user.id,
+    } as IGetAllCardsDTO);
+
+    foundCardSDeleted.forEach(async card => await cardRepository.delete(card));
+
     const card: ICreateCardDTO = {
       status: '10',
       title: 'Test 5',
@@ -101,7 +108,7 @@ describe('Card repository test', () => {
       user_id: createdCard.user_id,
     } as IGetAllCardsDTO);
 
-    expect(foundCard[0].id).toEqual(createdCard.id);
     expect(foundCard).toHaveLength(1);
+    expect(foundCard[0].id).toEqual(createdCard.id);
   });
 });

@@ -16,7 +16,6 @@ export class CardRepository implements ICardRepository {
         description,
         status,
         title,
-        User: user,
         user_id: user.id,
       },
     });

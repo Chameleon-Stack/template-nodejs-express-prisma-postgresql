@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 import { IUser } from '../../../users/dtos/IUser';
 import { UserRepository } from '../../../users/infra/prisma/repositories/UserRepository';
 import { IUserRepository } from '../../../users/repositories/IUserRepository';
@@ -71,6 +72,12 @@ describe('Category repository test', () => {
 
   it('Should be able to find all', async () => {
     const name = 'test 4';
+
+    const foundCategoriesDeleted = await categoryRepository.findAll(user.id);
+
+    foundCategoriesDeleted.forEach(
+      async category => await categoryRepository.delete(category),
+    );
 
     const category = await categoryRepository.create(name, user);
 
