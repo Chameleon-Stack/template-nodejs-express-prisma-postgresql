@@ -50,4 +50,12 @@ describe('Update card service', () => {
       } as IUpdateCardServiceDTO),
     ).rejects.toEqual(new LibError('the card does not exist', 404));
   });
+
+  it('should not be able to update card does not exists', async () => {
+    await expect(
+      updateCardService.execute({} as IUpdateCardServiceDTO),
+    ).rejects.toEqual(
+      new LibError('The id or the value was not inserted!', 400),
+    );
+  });
 });

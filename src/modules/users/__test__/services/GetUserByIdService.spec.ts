@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import LibError from '../../../../shared/errors/LibError';
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUser } from '../../dtos/IUser';
 import { IUserRepository } from '../../repositories/IUserRepository';
@@ -28,5 +29,11 @@ describe('Get user by id service', () => {
     expect(findUser.id).toEqual(userCreated.id);
     expect(findUser.name).toEqual(user.name);
     expect(findUser.email).toEqual(user.email);
+  });
+
+  it('should not be able to create user with params missing', async () => {
+    await expect(getUserByIdService.execute('uuid')).rejects.toEqual(
+      new LibError('User does not exists!', 404),
+    );
   });
 });

@@ -42,4 +42,13 @@ describe('Create user service', () => {
       new LibError('User already exists!'),
     );
   });
+
+  it('should not be able to create user with params missing', async () => {
+    await expect(
+      createUserService.execute({
+        email: 'example@example.com',
+        password: '1234',
+      } as ICreateUserDTO),
+    ).rejects.toEqual(new LibError('Missins params!'));
+  });
 });

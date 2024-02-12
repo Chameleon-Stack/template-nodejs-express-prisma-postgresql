@@ -35,6 +35,7 @@ model Category {
   created_at   DateTime       @default(now()) @db.Timestamp(6)
   updated_at   DateTime       @default(now()) @db.Timestamp(6)
   name         String         @db.VarChar
+  color        String         @db.VarChar
   user_id      String         @db.Uuid
   CardCategory CardCategory[]
   User         User           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_b0599b55851d01efb86c7955cf2")

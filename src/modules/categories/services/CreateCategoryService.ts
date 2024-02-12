@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import LibError from '../../../shared/errors/LibError';
 import { IUserRepository } from '../../users/repositories/IUserRepository';
 import { ICategory } from '../dtos/ICategory';
+import { ICreateCategoryUseCaseDTO } from '../dtos/ICreateCategoryUseCaseDTO';
 import { ICategoryRepository } from '../repositories/ICategoryRepository';
 
 @injectable()
@@ -14,7 +15,11 @@ export class CreateCategoryService {
     private userRepository: IUserRepository,
   ) {}
 
-  async execute(name: string, user_id: string): Promise<ICategory> {
+  async execute({
+    name,
+    color,
+    user_id,
+  }: ICreateCategoryUseCaseDTO): Promise<ICategory> {
     if (!name || !user_id) {
       throw new LibError('Name/User id is required!');
     }
@@ -25,7 +30,7 @@ export class CreateCategoryService {
       throw new LibError('User does not exists!', 404);
     }
 
-    const card = await this.categoryRepository.create(name, user);
+    const card = await this.categoryRepository.create({ name, color, user });
 
     return card;
   }

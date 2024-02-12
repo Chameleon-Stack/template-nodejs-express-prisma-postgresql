@@ -6,10 +6,14 @@ export class CreateCategoryController {
   async handle(request: Request, response: Response): Promise<Response> {
     const createCategoryService = container.resolve(CreateCategoryService);
 
-    const { name } = request.body;
+    const { name, color } = request.body;
     const { user_id } = request.params;
 
-    const category = await createCategoryService.execute(name, user_id);
+    const category = await createCategoryService.execute({
+      name,
+      color,
+      user_id,
+    });
 
     return response.status(201).json(category);
   }

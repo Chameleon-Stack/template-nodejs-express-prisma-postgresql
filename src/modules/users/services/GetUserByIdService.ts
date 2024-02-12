@@ -14,7 +14,7 @@ export class GetUserByIdService {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
-      throw new LibError('User does not existits!', 404);
+      throw new LibError('User does not exists!', 404);
     }
 
     return user;

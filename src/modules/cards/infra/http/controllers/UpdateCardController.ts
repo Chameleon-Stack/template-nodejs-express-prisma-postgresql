@@ -6,7 +6,7 @@ export class UpdateCardController {
   async handle(request: Request, response: Response): Promise<Response> {
     const updateCardService = container.resolve(UpdateCardService);
 
-    const { description, title, status } = request.body;
+    const { description, title, status, category_ids } = request.body;
 
     const { id } = request.params;
 
@@ -15,6 +15,7 @@ export class UpdateCardController {
       description,
       title,
       status,
+      category_ids,
     });
 
     return response.status(201).json(play);

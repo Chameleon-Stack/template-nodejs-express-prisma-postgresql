@@ -1,12 +1,14 @@
 import { prisma } from '../../../../../prisma';
 import { ICategory } from '../../../dtos/ICategory';
+import { ICreateCategoryDTO } from '../../../dtos/ICreateCategoryDTO';
 import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 export class CategoryRepository implements ICategoryRepository {
-  async create(name: string, user: any): Promise<ICategory> {
+  async create({ name, color, user }: ICreateCategoryDTO): Promise<ICategory> {
     return prisma.category.create({
       data: {
         name,
+        color,
         user_id: user.id,
       },
     });

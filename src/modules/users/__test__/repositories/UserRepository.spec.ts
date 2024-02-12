@@ -47,14 +47,14 @@ describe('User repository test', () => {
     expect(updateUser?.name).toEqual('test update 2');
   });
 
-  it('Should be able to find by ID', async () => {
+  it('Should be able to find by Email', async () => {
     const name = 'test 1';
     const email = 'test1@test';
     const password = '1234';
 
     const user = await userRepository.create({ name, email, password });
 
-    const foundUser = await userRepository.findById(user.id);
+    const foundUser = await userRepository.findByEmail(user.email);
 
     expect(foundUser?.id).toEqual(user.id);
   });

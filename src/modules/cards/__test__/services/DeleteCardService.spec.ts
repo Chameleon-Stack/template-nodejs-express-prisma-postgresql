@@ -34,4 +34,10 @@ describe('Delete card service', () => {
       new LibError('The card does not exist', 404),
     );
   });
+
+  it('should not be able to delete card without property id', async () => {
+    await expect(deleteCardUseCase.execute(undefined as any)).rejects.toEqual(
+      new LibError('The property id is required!', 400),
+    );
+  });
 });
