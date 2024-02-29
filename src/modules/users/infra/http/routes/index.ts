@@ -19,7 +19,7 @@ const getUserByIdController = new GetUserByIdController();
 
 userRoutes.post('/', upload.single('file'), createUserController.handle);
 userRoutes.delete('/:id', deleteUserController.handle);
-userRoutes.patch('/', upload.single('file'), updateUserController.handle);
+userRoutes.patch('/:id', upload.single('file'), updateUserController.handle);
 userRoutes.get('/:id', getUserByIdController.handle);
 userRoutes.post('/session', sessionController.handle);
 
