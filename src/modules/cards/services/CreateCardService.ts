@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import LibError from '../../../shared/errors/LibError';
+import { ICategoryRepository } from '../../categories/repositories/ICategoryRepository';
 import { IUserRepository } from '../../users/repositories/IUserRepository';
 import { ICard } from '../dtos/ICard';
 import { ICreateCardServiceDTO } from '../dtos/ICreateCardServiceDTO';
@@ -13,6 +14,9 @@ export class CreateCardService {
 
     @inject('UserRepository')
     private userRepository: IUserRepository,
+
+    @inject('CategoryRepository')
+    private categoryRepository: ICategoryRepository,
   ) {}
 
   async execute({
@@ -20,6 +24,7 @@ export class CreateCardService {
     description,
     title,
     status,
+    category_ids,
   }: ICreateCardServiceDTO): Promise<ICard> {
     if (!user_id || !description || !title || !status) {
       throw new LibError('Error in the creation of the card!');
@@ -36,6 +41,7 @@ export class CreateCardService {
       title,
       description,
       user,
+      categories_ids: category_ids,
     });
 
     return card;

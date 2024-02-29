@@ -1,5 +1,7 @@
 import 'reflect-metadata';
 import LibError from '../../../../shared/errors/LibError';
+import { ICategoryRepository } from '../../../categories/repositories/ICategoryRepository';
+import { CategoryRepositoryInMemory } from '../../../categories/repositories/inMemory/CategoryRepositoryInMemory';
 import { IUserRepository } from '../../../users/repositories/IUserRepository';
 import { UserRepositoryInMemory } from '../../../users/repositories/inMemory/UserRepositoryInMemory';
 import { ICreateCardServiceDTO } from '../../dtos/ICreateCardServiceDTO';
@@ -11,13 +13,16 @@ describe('Create card service', () => {
   let cardRepositoryInMemory: ICardRepository;
   let createCardService: CreateCardService;
   let userRepositoryInMemory: IUserRepository;
+  let categoryRepositoryInMemory: ICategoryRepository;
 
   beforeEach(() => {
     cardRepositoryInMemory = new CardRepositoryInMemory();
     userRepositoryInMemory = new UserRepositoryInMemory();
+    categoryRepositoryInMemory = new CategoryRepositoryInMemory();
     createCardService = new CreateCardService(
       cardRepositoryInMemory,
       userRepositoryInMemory,
+      categoryRepositoryInMemory,
     );
   });
 

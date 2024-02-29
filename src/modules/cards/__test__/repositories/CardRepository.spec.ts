@@ -111,6 +111,13 @@ describe('Card repository test', () => {
       description: card.description,
       id: createdCard.id,
     } as IGetAllCardsDTO);
+    console.log({
+      user_id: createdCard.user_id,
+      status: card.status,
+      title: card.title,
+      description: card.description,
+      id: createdCard.id,
+    });
 
     expect(foundCard).toHaveLength(1);
     expect(foundCard[0].id).toEqual(createdCard.id);

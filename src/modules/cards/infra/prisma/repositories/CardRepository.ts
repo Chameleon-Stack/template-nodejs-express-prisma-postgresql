@@ -10,8 +10,9 @@ export class CardRepository implements ICardRepository {
     status,
     title,
     user,
+    categories_ids,
   }: ICreateCardDTO): Promise<ICard> {
-    return prisma.cards.create({
+    const card = await prisma.cards.create({
       data: {
         description,
         status,
@@ -19,6 +20,19 @@ export class CardRepository implements ICardRepository {
         user_id: user.id,
       },
     });
+
+    if (categories_ids) {
+      for (const category_id of categories_ids) {
+        await prisma.cardCategory.create({
+          data: {
+            card_id: card.id,
+            category_id,
+          },
+        });
+      }
+    }
+
+    return card;
   }
 
   async update(card: ICard): Promise<ICard> {

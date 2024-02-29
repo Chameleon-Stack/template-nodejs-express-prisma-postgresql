@@ -48,8 +48,8 @@ describe('User repository test', () => {
   });
 
   it('Should be able to find by Email', async () => {
-    const name = 'test 1';
-    const email = 'test1@test';
+    const name = 'test 2';
+    const email = 'test2@test';
     const password = '1234';
 
     const user = await userRepository.create({ name, email, password });

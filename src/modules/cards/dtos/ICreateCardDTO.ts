@@ -3,4 +3,5 @@ export interface ICreateCardDTO {
   title: string;
   description: string;
   user: any;
+  categories_ids?: string[];
 }
