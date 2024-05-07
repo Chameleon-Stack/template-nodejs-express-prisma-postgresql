@@ -6,9 +6,8 @@ export class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const updateUserUseCase = container.resolve(UpdateUserService);
 
-    const { name, email, password, new_password } = request.body;
+    const { name, email, password, new_password, photo } = request.body;
 
-    const photo = request?.file?.filename;
     const { id } = request.params;
 
     const user = await updateUserUseCase.execute({

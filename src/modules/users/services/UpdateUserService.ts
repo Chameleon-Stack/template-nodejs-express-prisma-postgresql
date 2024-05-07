@@ -1,6 +1,4 @@
 import { compare, hash } from 'bcryptjs';
-import fs from 'fs';
-import path from 'path';
 import { inject, injectable } from 'tsyringe';
 import LibError from '../../../shared/errors/LibError';
 import { IUpdateUserDTO } from '../dtos/IUpdateUserDTO';
@@ -43,15 +41,6 @@ export class UpdateUserService {
     }
 
     if (photo) {
-      const filePath = path.join(
-        __dirname,
-        `../../../../uploads/${user.photo}`,
-      );
-
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
-
       user.photo = photo;
     }
 

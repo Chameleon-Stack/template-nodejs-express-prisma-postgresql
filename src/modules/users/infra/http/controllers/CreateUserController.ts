@@ -6,9 +6,7 @@ export class CreateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const createUserService = container.resolve(CreateUserService);
 
-    const { name, email, password } = request.body;
-
-    const photo = request?.file?.filename;
+    const { name, email, password, photo } = request.body;
 
     const user = await createUserService.execute({
       name,
