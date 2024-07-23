@@ -8,6 +8,7 @@ import express, {
   Response,
 } from 'express';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import swaggerDocument from '../../../swagger.json';
 import LibError from '../../errors/LibError';
 import { router as routes } from './routes';
@@ -15,6 +16,8 @@ import { router as routes } from './routes';
 const app = express();
 
 app.use(express.json() as RequestHandler);
+
+app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
